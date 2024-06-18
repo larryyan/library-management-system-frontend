@@ -12,6 +12,7 @@
             </ul>
         </div>
         <div class="content">
+            <user-info></user-info>
             <div v-show="currentTab === 'add-books'" class="tab-content">
                 <h2>馆藏书籍增加</h2>
                 <form @submit.prevent="addBook">
@@ -82,9 +83,16 @@
 
 <script>
 import axios from 'axios';
+import UserInfo from "@/components/UserInfo.vue";
 
 export default {
     name: 'Admin',
+    mounted() {
+        const accessToken = localStorage.getItem('access_token');
+        if (!accessToken) {
+            this.$router.push('/login');
+        }
+    },
     data() {
         return {
             currentTab: 'add-books',
@@ -113,6 +121,9 @@ export default {
                 book_type: { label: '图书类型：' },
             },
         };
+    },
+    components: {
+        UserInfo,
     },
     methods: {
         addBook() {

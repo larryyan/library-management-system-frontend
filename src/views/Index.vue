@@ -1,6 +1,7 @@
 <template>
     <div class="home-container">
         <div class="home">
+            <user-info></user-info>
             <h1 class="title">图书管理系统</h1>
             <div class="search-container">
                 <input type="text" v-model="searchQuery" placeholder="搜索图书..." class="search-input" />
@@ -43,6 +44,7 @@
 
 <script>
 import axios from 'axios';
+import UserInfo from "@/components/UserInfo.vue";
 
 export default {
     name: 'Home',
@@ -53,6 +55,16 @@ export default {
             books: [],
             bookTypes: []
         };
+    },
+    components: {
+        UserInfo,
+    },
+    mounted() {
+        // 检查是否已登录
+        const accessToken = localStorage.getItem('access_token');
+        if (!accessToken) {
+            this.$router.push('/login');
+        }
     },
     computed: {
         filteredBooks() {

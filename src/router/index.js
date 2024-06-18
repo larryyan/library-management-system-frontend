@@ -15,7 +15,17 @@ const routes = [
         name: '管理',
         path: '/admin',
         component: () => import('../views/Admin.vue')
-    }
+    },
+    {
+        name: '登录',
+        path: '/login',
+        component: () => import('../views/Login.vue')
+    },
+    {
+        name: '个人中心',
+        path: '/personal',
+        component: () => import('../views/Personal.vue')
+    },
 ]
 
 const router = createRouter({
