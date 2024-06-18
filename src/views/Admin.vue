@@ -1,4 +1,3 @@
-<!-- views/Admin.vue -->
 <template>
     <div class="container">
         <div class="sidebar">
@@ -6,49 +5,42 @@
             <ul>
                 <li :class="{ active: currentTab === 'add' }" @click="currentTab = 'add'">图书增加</li>
                 <li :class="{ active: currentTab === 'delete' }" @click="currentTab = 'delete'">图书删除</li>
+                <li :class="{ active: currentTab === 'put' }" @click="currentTab = 'put'">图书修改</li>
             </ul>
         </div>
         <div class="content">
-            <div v-if="currentTab === 'add'">
+            <div v-show="currentTab === 'add'" class="tab-content">
                 <h2>图书增加</h2>
-                <!-- 图书增加表单 -->
                 <form @submit.prevent="addBook">
-                    <div>
-                        <label for="isbn">ISBN：</label>
-                        <input type="text" id="isbn" v-model="book.isbn" required>
+                    <div v-for="(value, key) in bookFields" :key="key" class="form-group">
+                        <label :for="key">{{ value.label }}</label>
+                        <input type="text" :id="key" v-model="book[key]" required>
                     </div>
-                    <div>
-                        <label for="title">书名：</label>
-                        <input type="text" id="title" v-model="book.book_title" required>
-                    </div>
-                    <div>
-                        <label for="author">作者：</label>
-                        <input type="text" id="author" v-model="book.book_author" required>
-                    </div>
-                    <div>
-                        <label for="publisher">出版社：</label>
-                        <input type="text" id="publisher" v-model="book.book_publisher" required>
-                    </div>
-                    <div>
-                        <label for="type">图书类型：</label>
-                        <input type="text" id="type" v-model="book.book_type" required>
-                    </div>
-                    <div>
-                        <label for="address">图书位置：</label>
-                        <input type="text" id="address" v-model="book.book_address" required>
-                    </div>
-                    <button type="submit">添加图书</button>
+                    <button type="submit" class="btn-submit">添加图书</button>
                 </form>
             </div>
-            <div v-if="currentTab === 'delete'">
+            <div v-show="currentTab === 'delete'" class="tab-content">
                 <h2>图书删除</h2>
-                <!-- 图书删除表单 -->
                 <form @submit.prevent="deleteBook">
-                    <div>
+                    <div class="form-group">
                         <label for="deleteIsbn">ISBN：</label>
                         <input type="text" id="deleteIsbn" v-model="isbn" required>
                     </div>
-                    <button type="submit">删除图书</button>
+                    <button type="submit" class="btn-submit">删除图书</button>
+                </form>
+            </div>
+            <div v-show="currentTab === 'put'" class="tab-content">
+                <h2>图书修改</h2>
+                <form @submit.prevent="deleteBook">
+                    <div class="form-group">
+                        <label for="deleteIsbn">ISBN：</label>
+                        <input type="text" id="deleteIsbn" v-model="isbn" required>
+                    </div>
+                    <div v-for="(value, key) in editBook" :key="key" class="form-group">
+                        <label :for="key">{{ value.label }}</label>
+                        <input type="text" :id="key" v-model="book[key]" required>
+                    </div>
+                    <button type="submit" class="btn-submit">修改图书</button>
                 </form>
             </div>
         </div>
@@ -72,6 +64,21 @@ export default {
                 book_address: '',
             },
             isbn: '',
+            bookFields: {
+                isbn: { label: 'ISBN：' },
+                book_title: { label: '书名：' },
+                book_author: { label: '作者：' },
+                book_publisher: { label: '出版社：' },
+                book_type: { label: '图书类型：' },
+                book_address: { label: '图书位置：' },
+            },
+            editBook: {
+                book_title: { label: '书名：' },
+                book_author: { label: '作者：' },
+                book_publisher: { label: '出版社：' },
+                book_type: { label: '图书类型：' },
+                book_address: { label: '图书位置：' },
+            },
         };
     },
     methods: {
@@ -87,7 +94,7 @@ export default {
                 });
         },
         deleteBook() {
-            axios.delete(`http://127.0.0.1:5000/book/${this.isbn}`)
+            axios.delete('http://127.0.0.1:5000/book/${this.isbn}')
                 .then(response => {
                     console.log('删除图书成功:', response.data);
                     alert('删除图书成功');
@@ -97,13 +104,28 @@ export default {
                     alert('删除图书失败');
                 });
         },
+        updateBook() {
+            axios.put(`http://127.0.0.1:5000/book/${this.isbn}`, this.editBook)
+                .then(response => {
+                    console.log('更新图书成功:', response.data);
+                    alert('更新图书成功');
+                })
+                .catch(error => {
+                    console.error('更新图书失败:', error);
+                    alert('更新图书失败');
+                });
+        },
     },
 };
 </script>
 
-<style>
+<style scoped>
 .container {
     display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    /* Adjust as needed */
+    margin-top: 20px;
 }
 
 .sidebar {
@@ -120,6 +142,7 @@ export default {
 .sidebar li {
     cursor: pointer;
     padding: 10px;
+    transition: background-color 0.3s ease;
 }
 
 .sidebar li.active {
@@ -129,5 +152,47 @@ export default {
 .content {
     flex: 1;
     padding: 20px;
+}
+
+.tab-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button.btn-submit {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+button.btn-submit:hover {
+    background-color: #45a049;
 }
 </style>
