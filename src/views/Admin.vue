@@ -31,12 +31,8 @@
             </div>
             <div v-show="currentTab === 'put'" class="tab-content">
                 <h2>图书修改</h2>
-                <form @submit.prevent="deleteBook">
-                    <div class="form-group">
-                        <label for="deleteIsbn">ISBN：</label>
-                        <input type="text" id="deleteIsbn" v-model="isbn" required>
-                    </div>
-                    <div v-for="(value, key) in editBook" :key="key" class="form-group">
+                <form @submit.prevent="updateBook">
+                    <div v-for="(value, key) in bookFields" :key="key" class="form-group">
                         <label :for="key">{{ value.label }}</label>
                         <input type="text" :id="key" v-model="book[key]" required>
                     </div>
@@ -72,13 +68,6 @@ export default {
                 book_type: { label: '图书类型：' },
                 book_address: { label: '图书位置：' },
             },
-            editBook: {
-                book_title: { label: '书名：' },
-                book_author: { label: '作者：' },
-                book_publisher: { label: '出版社：' },
-                book_type: { label: '图书类型：' },
-                book_address: { label: '图书位置：' },
-            },
         };
     },
     methods: {
@@ -105,7 +94,8 @@ export default {
                 });
         },
         updateBook() {
-            axios.put(`http://127.0.0.1:5000/book/${this.isbn}`, this.editBook)
+            const { isbn, ...bookData } = this.book;
+            axios.put(`http://127.0.0.1:5000/book/${isbn}`, bookData)
                 .then(response => {
                     console.log('更新图书成功:', response.data);
                     alert('更新图书成功');

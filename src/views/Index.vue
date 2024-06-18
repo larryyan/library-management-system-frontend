@@ -110,7 +110,7 @@ export default {
 .home {
     max-width: 1200px;
     width: 90%;
-    max-height: 100vh; /* 设置最大高度占满视口 */
+    height: auto;
     padding: 20px;
     background-color: #fff;
     border-radius: 4px;
