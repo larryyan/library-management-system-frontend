@@ -1,4 +1,4 @@
-<!-- Personal.vue -->
+<!-- Profile.vue -->
 <template>
     <div class="personal">
         <h2>个人信息</h2>
@@ -21,7 +21,6 @@
             </div>
         </div>
         <div class="button-container">
-            <button class="edit-button" @click="editInfo">编辑信息</button>
             <button class="logout-button" @click="logout">退出登录</button>
         </div>
     </div>
@@ -77,7 +76,7 @@ export default {
 
 <style scoped>
 .personal {
-    max-width: 500px;
+    width: 500px;
     margin: 0 auto;
     padding: 20px;
     background-color: #f5f5f5;

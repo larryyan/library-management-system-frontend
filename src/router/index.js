@@ -23,9 +23,14 @@ const routes = [
     },
     {
         name: '个人中心',
-        path: '/personal',
-        component: () => import('../views/Personal.vue')
+        path: '/profile',
+        component: () => import('../views/Profile.vue')
     },
+    {
+        name: 'App',
+        path: '',
+        redirect: '/index'
+    }
 ]
 
 const router = createRouter({

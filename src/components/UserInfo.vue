@@ -34,7 +34,7 @@ export default {
             }
         },
         goToPersonal() {
-            this.$router.push('/personal');
+            this.$router.push('/profile');
         },
     },
 };

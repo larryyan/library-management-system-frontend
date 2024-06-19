@@ -1,12 +1,20 @@
+<!-- App.vue -->
 <template>
-    <div>
-        <router-view />
+    <div id="app">
+        <router-view></router-view>
     </div>
 </template>
 
 <script>
+export default {
+    name: 'App',
+    beforeRouteEnter(to, from, next) {
+        // 在进入任何路由之前，重定向到 /index
+        next({path: '/index'});
+    },
+};
 </script>
 
-<style scoped>
-/* 添加适当的样式 */
+<style>
+/* 全局样式 */
 </style>

@@ -229,6 +229,7 @@ export default {
 
 .content {
     flex: 1;
+    width: 500px;
     padding: 20px;
 }
 

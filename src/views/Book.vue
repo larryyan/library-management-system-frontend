@@ -13,12 +13,20 @@
                 </div>
                 <div class="book-copies">
                     <h2>馆藏信息</h2>
-                    <ul>
-                        <li v-for="bookItem in book.books" :key="bookItem.id">
-                            <p>馆藏地址: {{ bookItem.book_address }}</p>
-                            <p>ID: {{ bookItem.id }}</p>
-                        </li>
-                    </ul>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>馆藏地址</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="bookItem in book.books" :key="bookItem.id">
+                                <td>{{ bookItem.id }}</td>
+                                <td>{{ bookItem.book_address }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <div v-else class="loading">
@@ -43,6 +51,12 @@ export default {
             this.$router.go(-1);
         }
     },
+    mounted() {
+        const accessToken = localStorage.getItem('access_token');
+        if (!accessToken) {
+            this.$router.push('/login');
+        }
+    },
     created() {
         const isbn = this.$route.params.isbn;
         axios.get(`http://127.0.0.1:5000/book/${isbn}`)
@@ -52,7 +66,7 @@ export default {
             .catch(error => {
                 console.error('获取图书详情失败:', error);
             });
-    }
+    },
 };
 </script>
 
@@ -141,6 +155,35 @@ export default {
     background-color: #fff; /* 白色背景 */
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.book-copies table {
+    width: 100%;
+    max-width: 800px; /* 可选：设置表格的最大宽度 */
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.book-copies {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.book-copies th,
+.book-copies td {
+    padding: 0.8rem;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.book-copies th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.book-copies tr:hover {
+    background-color: #f5f5f5;
 }
 </style>
   
