@@ -149,7 +149,7 @@ export default {
                 });
         },
         updateBook() {
-            axios.put(`http://127.0.0.1:5000/book/${this.book_id}`, bookData)
+            axios.put(`http://127.0.0.1:5000/book/${this.book_id}`, this.book)
                 .then(response => {
                     console.log('更新图书成功:', response.data);
                     alert('更新图书成功');
