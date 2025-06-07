@@ -27,8 +27,6 @@
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
     data() {
         return {
@@ -50,24 +48,21 @@ export default {
                 if (!accessToken) {
                     this.$router.push('/login');
                 }
-                const response = await axios.get('http://127.0.0.1:5000/protected', {
+                const response = await this.$axios.get('protected', {
                     headers: { Authorization: `Bearer ${accessToken}` },
                 });
                 this.id = response.data.logged_in_as;
-                const readerResponse = await axios.get(`http://127.0.0.1:5000/reader/${this.id}`);
+                const readerResponse = await this.$axios.get(`reader/${this.id}`);
                 this.reader = readerResponse.data;
             } catch (error) {
                 console.error('获取读者信息失败', error);
             }
         },
         editInfo() {
-            // 在这里可以跳转到编辑个人信息的页面
             this.$router.push('/edit-info');
         },
         logout() {
-            // 清除本地存储中的 access token
             localStorage.removeItem('access_token');
-            // 跳转到登录页面
             this.$router.push('/login');
         },
     },

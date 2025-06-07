@@ -82,7 +82,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import UserInfo from "@/components/UserInfo.vue";
 
 export default {
@@ -127,7 +126,7 @@ export default {
     },
     methods: {
         addBook() {
-            axios.post('http://127.0.0.1:5000/book/', this.book)
+            this.$axios.post('book/', this.book)
                 .then(response => {
                     console.log('添加图书成功:', response.data);
                     alert('添加图书成功');
@@ -138,7 +137,7 @@ export default {
                 });
         },
         deleteBook() {
-            axios.delete(`http://127.0.0.1:5000/book/${this.book_id}`)
+            this.$axios.delete(`book/${this.book_id}`)
                 .then(response => {
                     console.log('删除图书成功:', response.data);
                     alert('删除图书成功');
@@ -149,7 +148,7 @@ export default {
                 });
         },
         updateBook() {
-            axios.put(`http://127.0.0.1:5000/book/${this.book_id}`, this.book)
+            this.$axios.put(`book/${this.book_id}`, this.book)
                 .then(response => {
                     console.log('更新图书成功:', response.data);
                     alert('更新图书成功');
@@ -160,7 +159,7 @@ export default {
                 });
         },
         addBookInfo() {
-            axios.post('http://127.0.0.1:5000/book_info/', this.book_info)
+            this.$axios.post('book_info/', this.book_info)
                 .then(response => {
                     console.log('添加图书成功:', response.data);
                     alert('添加图书成功');
@@ -171,7 +170,7 @@ export default {
                 });
         },
         deleteBookInfo() {
-            axios.delete(`http://127.0.0.1:5000/book_info/${this.isbn}`)
+            this.$axios.delete(`book_info/${this.isbn}`)
                 .then(response => {
                     console.log('删除图书成功:', response.data);
                     alert('删除图书成功');
@@ -183,7 +182,7 @@ export default {
         },
         updateBookInfo() {
             const { isbn, ...bookData } = this.book_info;
-            axios.put(`http://127.0.0.1:5000/book_info/${isbn}`, bookData)
+            this.$axios.put(`book_info/${isbn}`, bookData)
                 .then(response => {
                     console.log('更新图书成功:', response.data);
                     alert('更新图书成功');

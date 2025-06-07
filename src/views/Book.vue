@@ -37,8 +37,6 @@
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
     name: 'BookDetails',
     data() {
@@ -59,7 +57,7 @@ export default {
     },
     created() {
         const isbn = this.$route.params.isbn;
-        axios.get(`http://127.0.0.1:5000/book/${isbn}`)
+        this.$axios.get(`book/${isbn}`)
             .then(response => {
                 this.book = response.data;
             })
@@ -186,4 +184,3 @@ export default {
     background-color: #f5f5f5;
 }
 </style>
-  

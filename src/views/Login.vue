@@ -17,8 +17,6 @@
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
     data() {
         return {
@@ -37,7 +35,7 @@ export default {
     methods: {
         async login() {
             try {
-                const response = await axios.post('http://127.0.0.1:5000/login', {
+                const response = await this.$axios.post('login', {
                     uid: this.uid,
                     password: this.password,
                 });

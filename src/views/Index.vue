@@ -43,7 +43,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import UserInfo from "@/components/UserInfo.vue";
 
 export default {
@@ -84,7 +83,7 @@ export default {
     },
     methods: {
         searchBooks() {
-            axios.get('http://127.0.0.1:5000/book_info/')
+            this.$axios.get('book_info/')
                 .then(response => {
                     if (response.data.status === 'success') {
                         this.books = response.data.results;

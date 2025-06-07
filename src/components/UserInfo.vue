@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { getCurrentInstance } from 'vue';
 
 export default {
     data() {
@@ -22,7 +22,9 @@ export default {
             try {
                 const accessToken = localStorage.getItem('access_token');
                 if (accessToken) {
-                    const response = await axios.get('http://127.0.0.1:5000/protected',
+                    const instance = getCurrentInstance();
+                    const axios = instance.appContext.config.globalProperties.$axios;
+                    const response = await axios.get('/protected',
                         { headers: { Authorization: `Bearer ${accessToken}` } }
                     );
                     this.userId = response.data.logged_in_as;

@@ -1,5 +1,3 @@
-import { fileURLToPath, URL } from 'node:url'
-
 import {defineConfig, loadEnv} from 'vite'
 import vue from '@vitejs/plugin-vue'
 import path from 'path'
@@ -14,7 +12,7 @@ export default defineConfig({
     port: 3001,
     proxy: {
       '/api': {
-        target: "https://localhost:5001",
+        target: "http://localhost:5000",
         secure: false,
         changeOrigin: true,
         pathRewrite: {

@@ -1,89 +1,85 @@
 # Library Management System Frontend
 
-This is the frontend repository for the Library Management System, a web-based application for managing library resources, users, and transactions. The frontend is built using Vue.js, a progressive JavaScript framework for building user interfaces.
+本项目是图书管理系统的前端部分，基于 Vue 3 构建，旨在为图书馆管理、用户借阅、图书检索等功能提供现代化、响应式的 Web 界面。
 
-This project is an assignment for the course "Database Course Design". The back-end project address: https://github.com/larryyan/library-management-system-backend"
+## 项目特性
 
-## Features
+- 用户登录与登出
+- 图书检索与展示
+- 图书详情查看
+- 用户个人信息管理
+- 管理员后台（图书与用户管理）
+- 响应式设计，适配多端
 
-- User login and logout
-- Book search and display
-- Book details view
-- User profile management
-- Admin dashboard for managing books and users
-- Responsive and user-friendly interface
+## 技术栈
 
-## Technologies Used
+- [Vue 3](https://vuejs.org/)
+- [Vue Router](https://router.vuejs.org/)
+- [Axios](https://axios-http.com/)
+- [Vite](https://vitejs.dev/)
+- [Bootstrap](https://getbootstrap.com/)（样式框架）
 
-- Vue.js
-- Vue Router
-- Vuex (state management)
-- Axios (HTTP client)
-- Bootstrap (CSS framework)
+## 快速开始
 
-## Getting Started
+### 环境要求
 
-### Prerequisites
+- Node.js 12 及以上
+- npm
 
-- Node.js (version 12 or higher)
-- npm (Node Package Manager)
+### 安装与运行
 
-### Installation
+1. 克隆仓库：
 
-1. Clone the repository:
-
-   ```
+   ```bash
    git clone https://github.com/larryyan/library-management-system-frontend.git
-   ```
-
-2. Navigate to the project directory:
-
-   ```
    cd library-management-system-frontend
    ```
 
-3. Install the dependencies:
+2. 安装依赖：
 
-   ```
+   ```bash
    npm install
    ```
 
-4. Start the development server:
+3. 启动开发服务器：
 
+   ```bash
+   npm run dev
    ```
-   npm run serve
-   ```
 
-   The frontend application will be running at `http://localhost:8080`.
+   默认访问地址为 [http://localhost:3001](http://localhost:3001)
 
-## Configuration
+### 构建生产包
 
-The frontend configuration can be found in the `src/config.js` file. You can modify the following settings:
+```bash
+npm run build
+```
 
-- `BASE_URL`: The base URL of the backend API.
-- `API_TIMEOUT`: The timeout value for API requests.
+## 目录结构
 
-## Project Structure
+```
+├── public/               # 公共资源
+├── src/                  # 源码目录
+│   ├── assets/           # 静态资源
+│   ├── components/       # 公共组件
+│   ├── router/           # 路由配置
+│   ├── views/            # 页面视图
+│   ├── App.vue           # 根组件
+│   └── main.js           # 入口文件
+├── package.json          # 项目依赖与脚本
+├── vite.config.js        # Vite 配置
+└── ...
+```
 
-The project structure follows the standard Vue.js project structure:
+## 配置说明
 
-- `src/`: Contains the source code files.
-  - `assets/`: Contains static assets such as images and fonts.
-  - `components/`: Contains reusable Vue components.
-  - `router/`: Contains the Vue Router configuration.
-  - `views/`: Contains the main views or pages of the application.
-  - `App.vue`: The root component of the application.
-  - `main.js`: The entry point of the application.
-- `public/`: Contains the public assets and the `index.html` file.
-- `package.json`: Contains the project dependencies and scripts.
+- 前端 API 地址、超时时间等配置可在 `src/config.js` 中修改。
+- 开发环境下，`/api` 请求会被代理到本地后端（详见 `vite.config.js`）。
 
-## API Integration
+## API 集成
 
-The frontend communicates with the backend API using Axios, a promise-based HTTP client. The API endpoints and request/response formats should match the backend API specification.
+前端通过 Axios 与后端 API 通信，接口定义与请求方法可在 `src/api/` 目录下维护。请确保接口格式与后端一致。
 
-The API client configuration can be found in the `src/api/` directory, where you can define the API endpoints and request methods.
+## 许可证
 
-
-## License
-
-This project is licensed under the MIT License. See the `LICENSE` file for more information.
+本项目基于 MIT License 开源，详见 LICENSE 文件。
