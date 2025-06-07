@@ -1,9 +1,10 @@
-import {defineConfig, loadEnv} from 'vite'
+import {defineConfig} from 'vite'
 import vue from '@vitejs/plugin-vue'
 import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '/library/',
   plugins: [
     vue(),
   ],
@@ -19,6 +20,15 @@ export default defineConfig({
           '^/api': '/api'
         },
       },
+    },
+    setupMiddlewares(middlewares) {
+      middlewares.use((req, res, next) => {
+        if (req.url && req.url.startsWith('/library/') && !req.url.startsWith('/library/api')) {
+          req.url = req.url.replace('/library', '');
+        }
+        next();
+      });
+      return middlewares;
     },
   },
   resolve: {

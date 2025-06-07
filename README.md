@@ -47,7 +47,7 @@
    npm run dev
    ```
 
-   默认访问地址为 [http://localhost:3001](http://localhost:3001)
+   默认访问地址为 [http://localhost:3001](http://localhost:3001/library/)
 
 ### 构建生产包
 
